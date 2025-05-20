@@ -81,7 +81,8 @@ const estilos = StyleSheet.create({
         fontSize: 18,
         alignContent: 'center',
         marginTop: 33,
-        color: '#5A5A5A'
+        color: '#5A5A5A',
+        fontFamily: 'Poppins_400Regular',
     },
     input:{
         width: 366, 
