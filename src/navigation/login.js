@@ -1,7 +1,7 @@
 import React from "react";
-import { View, Text, StyleSheet, ActivityIndicator, Pressable } from "react-native"; // Importe ActivityIndicator para o loading
+import { View, Text, StyleSheet, ActivityIndicator, Pressable, Image } from "react-native"; // Importe ActivityIndicator para o loading
 import { useFonts, Poppins_400Regular, Poppins_700Bold } from '@expo-google-fonts/poppins';
-import { Button, TextInput } from "react-native";
+import { TextInput } from "react-native";
 import { TouchableOpacity } from "react-native";
 
 export default function CriandoLogin( {navigation}) {
@@ -20,11 +20,16 @@ export default function CriandoLogin( {navigation}) {
     }
 
     const handlePress = () => {
-        alert('Botão Entrar pressionado!');
+        navigation.navigate("Principal");
       };
+      
 
     return(
         <View style={{backgroundColor: 'white', alignItems: 'center', justifyContent: 'center', flex: 1}}>
+            <Image
+            source={require('../assets/logo.png')}
+            style={estilos.img}
+            />
             <View style={{flexDirection: 'row', alignItems: 'baseline'}}>
                 <Text style={estilos.titulo}>Viagem</Text>
                 <Text style={{fontSize: 40, alignContent: 'center', letterSpacing: 8, color: '#ADDAFF', fontFamily: 'Poppins_700Bold'}}>360</Text>
@@ -50,13 +55,17 @@ export default function CriandoLogin( {navigation}) {
             </TouchableOpacity>
             <Text style={estilos.texto}>Não tem conta?</Text>
             <Pressable onPress={() => navigation.navigate('Cadastro')}>
-                <Text style={[estilos.texto, {color: '#83A5FF', marginTop: 20}]}>Fazer cadastro</Text>
+                <Text style={[estilos.texto, {color: '#83A5FF', marginTop: 15}]}>Fazer cadastro</Text>
             </Pressable>
         </View>
     )
 }
 
 const estilos = StyleSheet.create({
+    img:{
+        width:200,
+        height: 200
+    },
     titulo:{
         fontSize: 40,
         alignContent: 'center',
@@ -65,24 +74,24 @@ const estilos = StyleSheet.create({
         fontFamily: 'Poppins_700Bold'
     },
     subtitulo:{
-        fontSize: 30,
+        fontSize: 25,
         alignContent: 'center',
-        letterSpacing: 6,
+        letterSpacing: 4,
         color: '#041542',
         fontFamily: 'Poppins_700Bold',
-        marginTop: 33
+        marginTop: 20
     },
     textoBotao:{
-        fontSize: 22,
+        fontSize: 20,
         color: 'white',
         alignItems: 'center',
         fontFamily: 'Poppins_700Bold',
-        letterSpacing: 4,
+        letterSpacing: 2,
     },
     texto:{
         fontSize: 18,
         alignContent: 'center',
-        marginTop: 33,
+        marginTop: 30,
         color: '#5A5A5A',
         fontFamily: 'Poppins_400Regular',
     },
@@ -99,7 +108,7 @@ const estilos = StyleSheet.create({
         marginTop: 33
     },
     botao:{
-        marginTop: 33,
+        marginTop: 30,
         backgroundColor: "#387CFF",
         width: 195,
         height: 56,
