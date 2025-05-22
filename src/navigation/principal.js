@@ -1,41 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import { View, Text, StyleSheet, ActivityIndicator, Image, TextInput, Button} from "react-native"; // Importe ActivityIndicator para o loading
 import { useFonts, Poppins_400Regular, Poppins_700Bold } from '@expo-google-fonts/poppins';
-import { buscarNomeUsuario } from "../services/firestore";
-import { getAuth } from "firebase/auth";
 
-export default function PaginaPrincipal() {
-    const auth = getAuth();
+export default function PaginaPrincipal({route, navigation}) {
 
-    const [nomeUsuario, setNomeUsuario] = useState('');
-    const [carregando, setCarregando] = useState(true);
-  
-    useEffect(() => {
-      const fetchNome = async () => {
-        const auth = getAuth();
-        const user = auth.currentUser;
-  
-        if (user) {
-          const nome = await buscarNomeUsuario(user.uid);
-          if (nome) {
-            setNomeUsuario(nome);
-          } else {
-            setNomeUsuario('Usuário'); // fallback
-          }
-        }
-        setCarregando(false);
-      };
-  
-      fetchNome();
-    }, []);
-
-    if (carregando) {
-        return (
-          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-            <Text>Carregando...</Text>
-          </View>
-        );
-      }
+    const { nomeUsuario } = route.params || {}
 
     let [fontsLoaded] = useFonts({
         Poppins_400Regular,
@@ -52,7 +21,7 @@ export default function PaginaPrincipal() {
 
     return(
         <View style={{backgroundColor: 'white', flex: 1, padding: 10}}>
-            <Text style={estilos.subtitulo}>Olá, {nomeUsuario}</Text>
+            <Text style={estilos.subtitulo}>Olá, {nomeUsuario || 'Usuário'}</Text>
             <Text style={estilos.texto}>Explore o Brasil</Text>
             <View style={estilos.container}>
                 <TextInput

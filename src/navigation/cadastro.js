@@ -5,7 +5,6 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebaseConfig";
 import { useNavigation } from "@react-navigation/native";
-import { salvarNomeUsuario } from "../services/firestore";
 
 export default function Cadastro() {
   const navigation = useNavigation()
@@ -31,9 +30,8 @@ export default function Cadastro() {
     }
   
     createUserWithEmailAndPassword(auth, email, senha)
-      .then(async userCredential => {
+      .then(userCredential => {
         const user = userCredential.user;
-        await salvarNomeUsuario(user.uid, nome, email);
         Alert.alert("Sucesso", "Conta criada com sucesso!");
         console.log("Usuário:", user);
         navigation.navigate('Principal', {nomeUsuario: nome})
