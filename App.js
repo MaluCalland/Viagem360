@@ -7,19 +7,24 @@ import CriandoLogin from './src/navigation/login';
 import Cadastro from './src/navigation/cadastro';
 import PaginaPrincipal from './src/navigation/principal';
 
+import { useAuth } from './src/services/autentificacao';
+
 const Stack = createNativeStackNavigator();
 
 export default function App() {
+  const user = useAuth(); //verifica se usuario esta logado
+
   return (
-    <NavigationContainer style={styles.container}>
-    <Stack.Navigator initialRouteName="Login">
-      <Stack.Screen name="Login" component={CriandoLogin} />
-      <Stack.Screen name="Cadastro" component={Cadastro} />
-      <Stack.Screen name="Principal" component={PaginaPrincipal} />
-    </Stack.Navigator>
-  </NavigationContainer>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName={user ? "Principal" : "Login"}>
+        <Stack.Screen name="Login" component={CriandoLogin} />
+        <Stack.Screen name="Cadastro" component={Cadastro} />
+        <Stack.Screen name="Principal" component={PaginaPrincipal} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
+
 
 const styles = StyleSheet.create({
   container: {

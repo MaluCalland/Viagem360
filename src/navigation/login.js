@@ -1,28 +1,41 @@
-import React from "react";
-import { View, Text, StyleSheet, ActivityIndicator, Pressable, Image } from "react-native"; // Importe ActivityIndicator para o loading
+import React, { useState } from "react";
+import { View, Text, StyleSheet, TextInput, ActivityIndicator, Pressable, Image, Alert, TouchableOpacity} from "react-native"; 
 import { useFonts, Poppins_400Regular, Poppins_700Bold } from '@expo-google-fonts/poppins';
-import { TextInput } from "react-native";
-import { TouchableOpacity } from "react-native";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../firebaseConfig";
 
 export default function CriandoLogin( {navigation}) {
 
-    let [fontsLoaded] = useFonts({
+    const [fontsLoaded] = useFonts({
         Poppins_400Regular,
         Poppins_700Bold,
-    });
-
-    if (!fontsLoaded) {
-        return (
-            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                <ActivityIndicator size="large" color="#0000ff" />
-            </View>
-        );
-    }
-
-    const handlePress = () => {
-        navigation.navigate("Principal");
-      };
+      });
+    
+      const [email, setEmail] = useState("");
+      const [senha, setSenha] = useState("");
+    
+      const handleLogin = () => {
+        if (!email || !senha) {
+          Alert.alert("Erro", "Preencha o e-mail e a senha.");
+          return;
+        }
       
+        signInWithEmailAndPassword(auth, email, senha)
+          .then(userCredential => {
+            const user = userCredential.user;
+            console.log("Mostraria alerta de sucesso");
+            console.log("Usuário logado:", user);
+            navigation.navigate('Principal'); 
+          })
+          .catch(error => {
+            console.log("Erro capturado:", error.code, error.message);
+            Alert.alert("Erro", error.message);
+          });
+      };
+    
+      if (!fontsLoaded) {
+        return <ActivityIndicator size="large" color="#387CFF" />;
+      }    
 
     return(
         <View style={{backgroundColor: 'white', alignItems: 'center', justifyContent: 'center', flex: 1}}>
@@ -38,19 +51,19 @@ export default function CriandoLogin( {navigation}) {
             <TextInput
             placeholder="   E-MAIL"
             style={estilos.input}
+            value={email}
+            onChangeText={setEmail}
             keyboardType="email-address"
             autoCapitalize="none"
             />
             <TextInput
             placeholder="   SENHA"
             style={estilos.input}
-            keyboardType="email-address"
-            autoCapitalize="none"
+            value={senha}
+            onChangeText={setSenha}
+            secureTextEntry
             />
-            <TouchableOpacity
-            style={estilos.botao}
-            onPress={handlePress}
-            >
+            <TouchableOpacity style={estilos.botao} onPress={handleLogin}>
                 <Text style={estilos.textoBotao}>Entrar</Text>
             </TouchableOpacity>
             <Text style={estilos.texto}>Não tem conta?</Text>

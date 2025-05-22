@@ -1,11 +1,41 @@
-import React from "react";
-import { View, Text, StyleSheet, ActivityIndicator, Pressable, Image } from "react-native"; // Importe ActivityIndicator para o loading
+import React, { useState } from "react";
+import { View, Text, StyleSheet, ActivityIndicator, Image, TextInput, Button} from "react-native"; // Importe ActivityIndicator para o loading
 import { useFonts, Poppins_400Regular, Poppins_700Bold } from '@expo-google-fonts/poppins';
-import { Button, TextInput } from "react-native";
-import { TouchableOpacity } from "react-native";
-
+import { buscarNomeUsuario } from "../services/firestore";
+import { getAuth } from "firebase/auth";
 
 export default function PaginaPrincipal() {
+    const auth = getAuth();
+
+    const [nomeUsuario, setNomeUsuario] = useState('');
+    const [carregando, setCarregando] = useState(true);
+  
+    useEffect(() => {
+      const fetchNome = async () => {
+        const auth = getAuth();
+        const user = auth.currentUser;
+  
+        if (user) {
+          const nome = await buscarNomeUsuario(user.uid);
+          if (nome) {
+            setNomeUsuario(nome);
+          } else {
+            setNomeUsuario('Usuário'); // fallback
+          }
+        }
+        setCarregando(false);
+      };
+  
+      fetchNome();
+    }, []);
+
+    if (carregando) {
+        return (
+          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+            <Text>Carregando...</Text>
+          </View>
+        );
+      }
 
     let [fontsLoaded] = useFonts({
         Poppins_400Regular,
@@ -22,7 +52,7 @@ export default function PaginaPrincipal() {
 
     return(
         <View style={{backgroundColor: 'white', flex: 1, padding: 10}}>
-            <Text style={estilos.subtitulo}>Olá, David</Text>
+            <Text style={estilos.subtitulo}>Olá, {nomeUsuario}</Text>
             <Text style={estilos.texto}>Explore o Brasil</Text>
             <View style={estilos.container}>
                 <TextInput
@@ -35,6 +65,7 @@ export default function PaginaPrincipal() {
                     style={estilos.icon}
                 />
             </View>
+            <Button title="Sair" onPress={() => navigation.navigate('Login')} />
 
         </View>
     )

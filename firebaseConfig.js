@@ -1,18 +1,17 @@
-// firebaseConfig.js
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
-  apiKey: "SUA_API_KEY",
-  authDomain: "SEU_AUTH_DOMAIN",
-  projectId: "SEU_PROJECT_ID",
-  storageBucket: "SEU_STORAGE_BUCKET",
-  messagingSenderId: "SEU_SENDER_ID",
-  appId: "SEU_APP_ID"
+  apiKey: "AIzaSyDfrh5rl2jV6RXlglQIz7Wh-obmyihZqC0",
+  authDomain: "appviagem360.firebaseapp.com",
+  projectId: "appviagem360",
+  storageBucket: "appviagem360.firebasestorage.app",
+  messagingSenderId: "217274871317",
+  appId: "1:217274871317:web:35023ae3018e996477a81c",
+  measurementId: "G-1Q6YLGG11P"
 };
 
-// Inicializa o Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
-export { auth };
+export { auth }

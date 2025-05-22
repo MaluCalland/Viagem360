@@ -1,55 +1,84 @@
-import React from "react";
-import { View, Text, StyleSheet, ActivityIndicator, Pressable } from "react-native"; // Importe ActivityIndicator para o loading
+import React, { useState } from "react";
+import { View, Text, StyleSheet, ActivityIndicator, TextInput, TouchableOpacity, Alert } from "react-native";
 import { useFonts, Poppins_400Regular, Poppins_700Bold } from '@expo-google-fonts/poppins';
-import { Button, TextInput } from "react-native";
-import { TouchableOpacity } from "react-native";
 import { LinearGradient } from 'expo-linear-gradient';
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../firebaseConfig";
+import { useNavigation } from "@react-navigation/native";
+import { salvarNomeUsuario } from "../services/firestore";
 
 export default function Cadastro() {
+  const navigation = useNavigation()
+
   const [fontsLoaded] = useFonts({
     Poppins_400Regular,
     Poppins_700Bold,
   });
 
+  const [email, setEmail] = useState("");
+  const [senha, setSenha] = useState("");
+  const [nome, setNome] = useState("");
+
+  const contaCriada = () => {
+    if (senha.length < 6) {
+      Alert.alert("Erro", "A senha deve ter no mínimo 6 caracteres.");
+      return;
+    }
+  
+    if (!email || !senha || !nome) {
+      Alert.alert("Erro", "Preencha todos os campos.");
+      return;
+    }
+  
+    createUserWithEmailAndPassword(auth, email, senha)
+      .then(async userCredential => {
+        const user = userCredential.user;
+        await salvarNomeUsuario(user.uid, nome, email);
+        Alert.alert("Sucesso", "Conta criada com sucesso!");
+        console.log("Usuário:", user);
+        navigation.navigate('Principal', {nomeUsuario: nome})
+      })
+      .catch(error => {
+        console.error("Erro ao criar conta:", error);
+        Alert.alert("Erro", error.message);
+      });
+  };
+  
   if (!fontsLoaded) {
     return <ActivityIndicator size="large" color="#387CFF" />;
   }
-
-  const contaCriada = () => {
-    
-    alert('Cadastro realizado com sucesso!');
-  };
 
   return (
     <View style={{backgroundColor: 'white', alignItems: 'center', justifyContent: 'center', flex: 1}}>
       <LinearGradient
         colors={['#387CFF', '#38B7FF']}
-        start={{ x: 0, y: 0 }}
-        end={{ x: 0, y: 1 }}
         style={estilos.gradientBox}
       >
         <Text style={estilos.subtitulo}>Faça seu cadastro</Text>
+
         <TextInput
           placeholder="   NOME"
           style={estilos.input}
-          keyboardType="default"
+          value={nome}
+          onChangeText={setNome}
         />
         <TextInput
           placeholder="   E-MAIL"
           style={estilos.input}
+          value={email}
+          onChangeText={setEmail}
           keyboardType="email-address"
           autoCapitalize="none"
         />
         <TextInput
           placeholder="   SENHA"
           style={estilos.input}
+          value={senha}
+          onChangeText={setSenha}
           secureTextEntry
-          keyboardType="default"
         />
-        <TouchableOpacity
-        style={estilos.botao}
-        onPress={contaCriada}
-        >
+
+        <TouchableOpacity style={estilos.botao} onPress={contaCriada}>
           <Text style={estilos.textoBotao}>Criar conta</Text>
         </TouchableOpacity>
       </LinearGradient>
