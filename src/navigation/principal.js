@@ -21,7 +21,10 @@ export default function PaginaPrincipal({route, navigation}) {
 
     return(
         <View style={{backgroundColor: 'white', flex: 1, padding: 10}}>
-            <Text style={estilos.subtitulo}>Olá, {nomeUsuario || 'Usuário'}</Text>
+            <View style={{flexDirection: 'row', alignItems: 'baseline'}}>
+                <Text style={estilos.subtitulo}>Olá, </Text>
+                <Text style={estilos.nome}>{nomeUsuario || 'Usuário'}</Text>
+            </View>
             <Text style={estilos.texto}>Explore o Brasil</Text>
             <View style={estilos.container}>
                 <TextInput
@@ -34,6 +37,7 @@ export default function PaginaPrincipal({route, navigation}) {
                     style={estilos.icon}
                 />
             </View>
+            <Text style={estilos.subtitulo}>Locais Populares</Text>
             <Button title="Sair" onPress={() => navigation.navigate('Login')} />
 
         </View>
@@ -52,6 +56,11 @@ const estilos = StyleSheet.create({
         fontSize: 30,
         color: '#041542',
         fontFamily: 'Poppins_700Bold',
+    },
+    nome:{
+        fontSize: 30,
+        color: '#041542',
+        fontFamily: 'Poppins_400Regular',
     },
     texto:{
         fontSize: 18,
