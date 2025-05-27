@@ -229,7 +229,7 @@ const estilos = StyleSheet.create({
     fontSize: 15,
     fontFamily: 'Poppins_700Bold',
     textAlign: 'center',
-    flexShrink: 1, // Permite que o texto quebre linha
+    flexShrink: 1, 
   },
   erroTexto: {
     color: '#5A5A5A',
