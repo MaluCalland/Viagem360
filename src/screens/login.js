@@ -29,7 +29,7 @@ export default function CriandoLogin( {navigation}) {
             const user = userCredential.user;
             console.log("Usuário logado:", user);
             setCarregando(false);
-            navigation.navigate('Principal', { nomeUsuario: nome });
+            navigation.navigate('Início', { nomeUsuario: nome });
           })
           .catch(error => {
             console.log("Erro capturado:", error.code, error.message);

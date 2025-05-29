@@ -1,18 +1,17 @@
-// src/screens/sair.js
-import React, { useEffect } from 'react';
-import { View, Text } from 'react-native';
+import React from 'react';
+import { View, Button } from 'react-native';
 
-export default function Sair({ navigation }) {
-  useEffect(() => {
-    // aqui você pode limpar tokens, estado de autenticação, etc.
-
-    // depois navega para a tela de login
-    navigation.replace('Login');
-  }, []);
+export default function SairScreen({ navigation }) {
+  function handleLogout() {
+    navigation.reset({
+      index: 0,
+      routes: [{ name: 'Login' }],
+    });
+  }
 
   return (
-    <View>
-      <Text>Saindo...</Text>
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <Button title="Confirmar Logout" onPress={handleLogout} />
     </View>
   );
 }

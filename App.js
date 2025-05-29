@@ -19,7 +19,6 @@
 //       <Stack.Navigator initialRouteName={user ? "Principal" : "Login"}>
 //         <Stack.Screen name="Login" component={CriandoLogin} />
 //         <Stack.Screen name="Cadastro" component={Cadastro} />
-//         <Stack.Screen name="Principal" component={PaginaPrincipal} />
 //       </Stack.Navigator>
 //     </NavigationContainer>
 //   );
@@ -32,27 +31,27 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import CriandoLogin from './src/screens/login';
 import Cadastro from './src/screens/cadastro';
-import DrawerRoutes from './src/navigation/drawerRoutes'; // <- importa o drawer
+import DrawerRoutes from './src/navigation/drawerRoutes';
 
-import { useAuth } from './src/services/autentificacao';
+import { useAuth } from './src/services/autentificacao'; // seu hook que controla o user logado
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
-  const user = useAuth(); // você decide se mostra login ou vai direto pro drawer
+  const user = useAuth(); // retorna null ou user object
 
   return (
     <NavigationContainer>
-            <Stack.Navigator initialRouteName={user ? "Principal" : "Login"}>
-        {!user ? (
-          <>
-            <Stack.Screen name="Login" component={CriandoLogin} />
-            <Stack.Screen name="Cadastro" component={Cadastro} />
-          </>
-        ) : (
-          <Stack.Screen name="Principal" component={DrawerRoutes} />
-        )}
-      </Stack.Navigator>
+      {user ? (
+        <DrawerRoutes />
+      ) : (
+        <Stack.Navigator screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="Login" component={CriandoLogin} />
+          <Stack.Screen name="Cadastro" component={Cadastro} />
+        </Stack.Navigator>
+      )}
     </NavigationContainer>
   );
 }
+
+

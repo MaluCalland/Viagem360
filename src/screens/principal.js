@@ -19,6 +19,8 @@ export default function PaginaPrincipal({route, navigation}) {
         );
     }
 
+    navigation.openDrawer();
+
     return(
         <View style={{backgroundColor: 'white', flex: 1, padding: 10}}>
             <View style={{flexDirection: 'row', alignItems: 'baseline'}}>
