@@ -19,8 +19,6 @@ export default function PaginaPrincipal({route, navigation}) {
         );
     }
 
-    navigation.openDrawer();
-
     return(
         <View style={{backgroundColor: 'white', flex: 1, padding: 10}}>
             <View style={{flexDirection: 'row', alignItems: 'baseline'}}>
@@ -28,18 +26,8 @@ export default function PaginaPrincipal({route, navigation}) {
                 <Text style={estilos.nome}>{nomeUsuario || 'Usuário'}</Text>
             </View>
             <Text style={estilos.texto}>Explore o Brasil</Text>
-            <View style={estilos.container}>
-                <TextInput
-                    style={estilos.input}
-                    placeholder="Faça sua pesquisa"
-                    placeholderTextColor="#5A5A5A"
-                />
-                <Image
-                    source={{uri: 'https://raw.githubusercontent.com/DSCODEYT/App-UIUX-Design/8dfacd7efd37acbb7c9db3963ff407ad4cfe4565/Travel%20app%20source%20file/fi-br-search.svg'}}
-                    style={estilos.icon}
-                />
-            </View>
             <Text style={estilos.subtitulo}>Locais Populares</Text>
+            <Button title="Detalhes" onPress={() => navigation.navigate('Detalhes')}/>
             <Button title="Sair" onPress={() => navigation.navigate('Login')} />
 
         </View>
