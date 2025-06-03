@@ -1,4 +1,4 @@
-# VIAGEM60 - APLICATIVO DE VIAGENS
+# VIAGEM360 - APLICATIVO DE VIAGENS
 
 **Viagem360** é um aplicativo mobile desenvolvido com **React Native** e **Expo**, projetado para ajudar viajantes a explorar destinos e descobrir experiências únicas ao redor do mundo.
 
