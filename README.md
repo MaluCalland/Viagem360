@@ -51,4 +51,6 @@
     appId: "SEU_APP_ID"
     };
 
-5. Execute o app: npx expo start
+5. Execute o app
+    
+    npx expo start
