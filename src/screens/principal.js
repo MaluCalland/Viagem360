@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet, ActivityIndicator, Image, TextInput, Button} from "react-native"; // Importe ActivityIndicator para o loading
 import { useFonts, Poppins_400Regular, Poppins_700Bold } from '@expo-google-fonts/poppins';
+import LugaresViagem from "../screens/lugares.js";
 
 export default function PaginaPrincipal({route, navigation}) {
 
@@ -27,9 +28,7 @@ export default function PaginaPrincipal({route, navigation}) {
             </View>
             <Text style={estilos.texto}>Explore o Brasil</Text>
             <Text style={estilos.subtitulo}>Locais Populares</Text>
-            <Button title="Detalhes" onPress={() => navigation.navigate('Detalhes')}/>
-            <Button title="Sair" onPress={() => navigation.navigate('Login')} />
-
+            <LugaresViagem/>
         </View>
     )
 }

@@ -83,7 +83,40 @@ const lugares = [
     },
   ];
 
-export default function LugaresViagem() {
+  class Detalhes extends Component {
+    render() {
+      const { route } = this.props;
+      const { lugar } = route.params;
+  
+      return (
+        <ScrollView style={estilos.fundo}>
+          <View>
+            <Text style={estilos.nome}>{lugar.nome}</Text>
+            <Text style={estilos.sobre}>{lugar.sobre}</Text>
+          </View>
+          <Text style={{ fontSize:18, fontWeight: 'bold', marginTop: 12}}>Passeios </Text>
+          <Text style={estilos.sobre}>{lugar.mensagem}</Text>
+          <Text>{lugar.detalhes}</Text>
+  
+          <FlatList
+            data={lugar.passeios}
+            keyExtractor={(item) => item.id}
+            renderItem={({ item }) => (
+              <View style={estilos.nav}>
+                <Image source={{ uri: item.foto }} style={estilos.fotoPasseio} />
+                <View style={estilos.textoContainer}>
+                  <Text style={estilos.nome}>{item.nome}</Text>
+                  <Text style={estilos.sobre}>{item.descricao}</Text>
+                </View>
+              </View>
+            )}
+          />
+        </ScrollView>
+      );
+    }
+  }
+
+export default function LugaresViagem(props) {
 
       return (
         <ScrollView>
