@@ -16,19 +16,32 @@
 
 # COMO RODAR O PROJETO
 
-1. Clone o repositório: git clone https://github.com/MaluCalland/Viagem360.git
+1. Clone o repositório: 
+    
+    git clone https://github.com/MaluCalland/Viagem360.git
 
-2. Abra a pasta: cd Viagem360
+2. Abra a pasta: 
+    
+    cd Viagem360
 
-3. Instale as dependências: npm install
+3. Instale as dependências: 
+    
+    npm install
 
 4. Configure o Firebase: 
 
 **Passos**
 
-* Ative os serviços: Authentication (modo Email/Senha ou outro de sua escolha)
-* Localize o arquivo ./src/services/firebaseConfig.js
+* Ative os serviços: 
+    
+    Authentication (modo Email/Senha ou outro de sua escolha)
+
+* Localize o arquivo:
+    
+    ./src/services/firebaseConfig.js
+
 * Atualize com as credencias do Firebase: 
+
     export const firebaseConfig = {
     apiKey: "SUA_API_KEY",
     authDomain: "SEU_PROJETO.firebaseapp.com",
@@ -38,4 +51,4 @@
     appId: "SEU_APP_ID"
     };
 
-5. Execute o app: npm expo start
+5. Execute o app: npx expo start
