@@ -1,5 +1,6 @@
 import { React, Component } from "react";
 import { FlatList, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { useNavigation } from '@react-navigation/native';
 
 const lugares = [
     {
@@ -83,65 +84,34 @@ const lugares = [
     },
   ];
 
-  class Detalhes extends Component {
-    render() {
-      const { route } = this.props;
-      const { lugar } = route.params;
+  export default function LugaresViagem() {
+    const navigation = useNavigation(); 
   
-      return (
-        <ScrollView style={estilos.fundo}>
-          <View>
-            <Text style={estilos.nome}>{lugar.nome}</Text>
-            <Text style={estilos.sobre}>{lugar.sobre}</Text>
-          </View>
-          <Text style={{ fontSize:18, fontWeight: 'bold', marginTop: 12}}>Passeios </Text>
-          <Text style={estilos.sobre}>{lugar.mensagem}</Text>
-          <Text>{lugar.detalhes}</Text>
-  
-          <FlatList
-            data={lugar.passeios}
-            keyExtractor={(item) => item.id}
-            renderItem={({ item }) => (
-              <View style={estilos.nav}>
-                <Image source={{ uri: item.foto }} style={estilos.fotoPasseio} />
-                <View style={estilos.textoContainer}>
-                  <Text style={estilos.nome}>{item.nome}</Text>
-                  <Text style={estilos.sobre}>{item.descricao}</Text>
-                </View>
-              </View>
-            )}
-          />
-        </ScrollView>
-      );
-    }
-  }
-
-export default function LugaresViagem(props) {
-
-      return (
-        <ScrollView>
+    return (
+      <ScrollView>
         <View style={estilos.fundo}>
           <FlatList
             data={lugares}
             keyExtractor={(item) => item.id}
             renderItem={({ item }) => (
               <TouchableOpacity
-              style={estilos.nav}
-              onPress={() => this.props.navigation.navigate('Detalhes', { lugar: item })}
+                style={estilos.nav}
+                onPress={() => navigation.navigate('Detalhes', { lugar: item })} // <--- Corrigido
               >
-              <Image source={{ uri: item.foto }} style={estilos.foto} />
-              <View style={estilos.textoContainer}>
-                <Text style={estilos.nome}>{item.nome}</Text>
-                <Text style={estilos.sobre}>{item.sobre}</Text>
-              </View>
+                <View style={estilos.textoContainer}>
+                <Image source={{ uri: item.foto }} style={estilos.fotoPrincipal} />
+
+                  <Text style={estilos.nome}>{item.nome}</Text>
+                  <Text style={estilos.sobre}>{item.sobre}</Text>
+                </View>
               </TouchableOpacity>
             )}
           />
         </View>
-        </ScrollView>
-      );
+      </ScrollView>
+    );
   }
-
+  
   const estilos = StyleSheet.create({
     fundo: {
       flex: 1,
@@ -166,12 +136,12 @@ export default function LugaresViagem(props) {
       alignItems: 'center',
       boxShadow: '0px 0px 2px rgba(0, 0, 0, 0.5)',
     },
-    foto: {
-      width: 120,
-      height: 120,
-      borderRadius: 8,
-      marginRight: 15,
-    },
+    fotoPrincipal: {
+      width: '100%',
+      height: 200,
+      borderRadius: 10,
+      marginBottom: 20,
+    },   
     fotoPasseio: {
       width: 120,
       height: 120,
@@ -182,12 +152,15 @@ export default function LugaresViagem(props) {
       flex: 1,
     },
     nome: {
-      fontSize: 18,
-      fontWeight: 'bold',
+      fontSize: 15,
+      color: '#041542',
+      fontFamily: 'Poppins_700Bold', 
+      letterSpacing:  0.975
     },
     sobre: {
-      fontSize: 14,
-      color: '#555',
+      fontSize: 12,
+      color: '#041542',
+      fontFamily: 'Poppins_400Regular', 
       textAlign: 'justify'
     },
     container: {

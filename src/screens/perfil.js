@@ -7,6 +7,7 @@ export default function ProfileScreen() {
 
   return (
     <View style={styles.container}>
+      <Text style={styles.titulo}>Perfil</Text>
       <Text style={styles.label}>Nome</Text>
       <TextInput style={styles.input} value={nome} onChangeText={setNome} />
 
@@ -26,5 +27,12 @@ const styles = StyleSheet.create({
     borderColor: '#ccc',
     marginBottom: 20,
     padding: 8
+  },
+  titulo: {
+      fontSize: 30,
+      alignItems: 'center',
+      color: '#041542',
+      fontFamily: 'Poppins_700Bold', 
+      letterSpacing: 1.95
   }
 });

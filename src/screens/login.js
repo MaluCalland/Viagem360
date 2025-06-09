@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { View, Text, StyleSheet, TextInput, ActivityIndicator, Pressable, Image, Alert, TouchableOpacity} from "react-native"; 
 import { useFonts, Poppins_400Regular, Poppins_700Bold } from '@expo-google-fonts/poppins';
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../firebaseConfig";
+import { auth } from "../services/firebaseConfig";
 
 export default function CriandoLogin( {navigation}) {
 

@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, ActivityIndicator, TextInput, TouchableOpacity,
 import { useFonts, Poppins_400Regular, Poppins_700Bold } from '@expo-google-fonts/poppins';
 import { LinearGradient } from 'expo-linear-gradient';
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../firebaseConfig";
+import { auth } from "../services/firebaseConfig";
 import { useNavigation } from "@react-navigation/native";
 
 const IconeSucesso = require('../img/sucesso.png'); 
