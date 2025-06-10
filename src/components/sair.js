@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 
-export default function SairScreen({ navigation }) {
+export default function Sair({ navigation }) {
   function handleLogout() {
     navigation.reset({
       index: 0,

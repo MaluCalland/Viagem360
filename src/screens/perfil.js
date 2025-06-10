@@ -5,7 +5,7 @@ import { doc, getDoc, setDoc, updateDoc  } from 'firebase/firestore';
 import { onAuthStateChanged } from 'firebase/auth';
 
 
-export default function ProfileScreen() {
+export default function Perfil() {
   const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
   const [carregando, setCarregando] = useState(true);
